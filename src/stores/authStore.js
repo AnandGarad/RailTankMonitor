@@ -10,23 +10,27 @@ const useAuthStore = create((set) => ({
     set({ loading: true, error: null })
     try {
       // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
       if (email === 'admin@railtank.com' && password === 'Admin@123') {
-        const userData = {
-          id: 1,
-          name: 'Admin User',
-          email: email,
-          role: 'admin',
-          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=admin',
-          company: 'Rail Tank Logistics',
-        }
-        set({ isAuthenticated: true, user: userData, loading: false })
-        return true
+        set({
+          isAuthenticated: true,
+          user: {
+            id: 1,
+            name: 'Admin User',
+            email,
+            role: 'Administrator',
+            avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=admin',
+          },
+          loading: false,
+        })
+        return { success: true }
       } else {
-        throw new Error('Invalid credentials')
+        throw new Error('Invalid email or password')
       }
     } catch (error) {
       set({ error: error.message, loading: false })
-      return false
+      return { success: false, error: error.message }
     }
   },
 
@@ -34,9 +38,9 @@ const useAuthStore = create((set) => ({
     set({ isAuthenticated: false, user: null })
   },
 
-  updateProfile: (updates) => {
+  updateProfile: async (data) => {
     set((state) => ({
-      user: { ...state.user, ...updates },
+      user: { ...state.user, ...data },
     }))
   },
 }))

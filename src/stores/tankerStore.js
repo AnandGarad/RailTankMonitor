@@ -1,38 +1,25 @@
 import { create } from 'zustand'
+import { TOTAL_TANKERS, TANKER_CAPACITY } from '../utils/constants'
 
 const useTankerStore = create((set) => ({
   tankers: [],
-  loading: false,
   selectedTanker: null,
 
-  // Initialize tankers with dummy data
   initializeTankers: () => {
-    const tankers = Array.from({ length: 100 }, (_, i) => ({
+    const newTankers = Array.from({ length: TOTAL_TANKERS }, (_, i) => ({
       id: `TANK-${String(i + 1).padStart(3, '0')}`,
-      number: i + 1,
-      waterPercentage: Math.floor(Math.random() * 100),
-      waterLiters: Math.floor(Math.random() * 500),
-      capacity: 500,
+      waterPercentage: Math.random() * 100,
+      waterLiters: Math.random() * TANKER_CAPACITY,
+      capacity: TANKER_CAPACITY,
       temperature: 20 + Math.random() * 15,
-      pressure: 1.5 + Math.random() * 2,
+      pressure: 1 + Math.random() * 2,
+      sensorStatus: Math.random() > 0.05 ? 'operational' : 'offline',
       valveStatus: ['open', 'closed', 'partial'][Math.floor(Math.random() * 3)],
-      sensorStatus: Math.random() > 0.1 ? 'operational' : 'offline',
       health: ['normal', 'warning', 'critical'][Math.floor(Math.random() * 3)],
-      lastUpdated: new Date(),
-      gpsLat: 19.0760 + Math.random() * 0.05,
-      gpsLon: 72.8777 + Math.random() * 0.05,
-      fillHistory: [],
-      consumptionHistory: [],
+      gpsLat: 19.0 + Math.random() * 0.5,
+      gpsLon: 72.8 + Math.random() * 0.5,
     }))
-    set({ tankers })
-  },
-
-  updateTankerData: (tankerId, updates) => {
-    set((state) => ({
-      tankers: state.tankers.map((t) =>
-        t.id === tankerId ? { ...t, ...updates, lastUpdated: new Date() } : t
-      ),
-    }))
+    set({ tankers: newTankers })
   },
 
   updateAllTankers: () => {
@@ -40,30 +27,30 @@ const useTankerStore = create((set) => ({
       tankers: state.tankers.map((t) => ({
         ...t,
         waterPercentage: Math.max(0, Math.min(100, t.waterPercentage + (Math.random() - 0.5) * 5)),
-        waterLiters: Math.max(0, Math.min(500, t.waterLiters + (Math.random() - 0.5) * 10)),
-        temperature: 20 + Math.random() * 15,
-        pressure: Math.max(0, 1.5 + Math.random() * 2),
-        sensorStatus: Math.random() > 0.95 ? 'offline' : 'operational',
-        lastUpdated: new Date(),
+        waterLiters: Math.max(0, Math.min(TANKER_CAPACITY, t.waterLiters + (Math.random() - 0.5) * 50)),
+        temperature: Math.max(10, Math.min(40, t.temperature + (Math.random() - 0.5) * 2)),
+        pressure: Math.max(0, Math.min(3, t.pressure + (Math.random() - 0.5) * 0.2)),
       })),
     }))
   },
 
-  setSelectedTanker: (tanker) => {
-    set({ selectedTanker: tanker })
+  setSelectedTanker: (id) => {
+    set((state) => ({
+      selectedTanker: state.tankers.find((t) => t.id === id),
+    }))
   },
 
   getTankerById: (id) => {
-    const state = useTankerStore.getState()
-    return state.tankers.find((t) => t.id === id)
+    const store = useTankerStore.getState()
+    return store.tankers.find((t) => t.id === id)
   },
 
   searchTankers: (query) => {
-    const state = useTankerStore.getState()
-    return state.tankers.filter(
+    const store = useTankerStore.getState()
+    return store.tankers.filter(
       (t) =>
         t.id.toLowerCase().includes(query.toLowerCase()) ||
-        t.number.toString().includes(query)
+        t.health.toLowerCase().includes(query.toLowerCase())
     )
   },
 }))

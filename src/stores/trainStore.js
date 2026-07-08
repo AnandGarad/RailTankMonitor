@@ -3,32 +3,27 @@ import { create } from 'zustand'
 const useTrainStore = create((set) => ({
   train: {
     id: 'RTM-2024-001',
-    engineNumber: 'WDM-3A-18456',
-    driverName: 'Rajesh Kumar',
     status: 'in_transit',
-    currentStation: 'Mumbai Central',
-    nextStation: 'Pune Junction',
-    lastUpdated: new Date(),
-    gpsSignal: 'strong',
-    speed: 85,
-    distance: 150,
-    eta: '14:30',
+    speed: 0,
     latitude: 19.0760,
     longitude: 72.8777,
     heading: 45,
+    distance: 0,
+    currentStation: 'Mumbai Central',
+    nextStation: 'Dadar',
+    eta: '14:30',
+    driverName: 'Raj Kumar',
+    engineNumber: 'E-001',
+    gpsSignal: 'strong',
+    lastUpdated: new Date(),
   },
-  tankersCount: 100,
-  totalCapacity: 50000,
-  totalWater: 42500,
-  averageWaterLevel: 85,
-  sensorStatus: 'operational',
 
-  updateTrainPosition: (latitude, longitude, speed, heading) => {
+  updateTrainPosition: (lat, lon, speed, heading) => {
     set((state) => ({
       train: {
         ...state.train,
-        latitude,
-        longitude,
+        latitude: lat,
+        longitude: lon,
         speed,
         heading,
         lastUpdated: new Date(),
@@ -36,14 +31,22 @@ const useTrainStore = create((set) => ({
     }))
   },
 
-  updateTrainStatus: (updates) => {
+  updateTrainStatus: (status) => {
     set((state) => ({
-      train: { ...state.train, ...updates },
+      train: {
+        ...state.train,
+        status,
+      },
     }))
   },
 
   updateMetrics: (metrics) => {
-    set(metrics)
+    set((state) => ({
+      train: {
+        ...state.train,
+        ...metrics,
+      },
+    }))
   },
 }))
 
