@@ -1,47 +1,46 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useAlertStore from '../stores/alertStore'
+import { UPDATE_INTERVALS } from '../utils/constants'
 
-/**
- * Custom hook for alert management
- * Handles alert operations and monitoring
- */
 const useAlerts = () => {
   const { alerts, addAlert, resolveAlert, dismissAlert, getActiveAlerts } = useAlertStore()
+  const [activeAlerts, setActiveAlerts] = useState([])
+  const [criticalAlerts, setCriticalAlerts] = useState([])
+  const [warningAlerts, setWarningAlerts] = useState([])
+  const [infoAlerts, setInfoAlerts] = useState([])
 
-  // Simulate random alerts
   useEffect(() => {
-    const interval = setInterval(() => {
-      const alertTypes = ['low_water', 'sensor_offline', 'high_temp', 'pressure_warning', 'gps_offline']
-      const severities = ['info', 'warning', 'critical']
-      const tankNumber = Math.floor(Math.random() * 100) + 1
+    // Initialize with some sample alerts
+    if (alerts.length === 0) {
+      addAlert({
+        type: 'water_level',
+        severity: 'warning',
+        message: 'Low water level detected',
+        location: 'TANK-001',
+      })
+      addAlert({
+        type: 'sensor_offline',
+        severity: 'critical',
+        message: 'Sensor offline',
+        location: 'TANK-045',
+      })
+    }
+  }, [])
 
-      // 5% chance of generating an alert
-      if (Math.random() > 0.95) {
-        const type = alertTypes[Math.floor(Math.random() * alertTypes.length)]
-        const severity = severities[Math.floor(Math.random() * severities.length)]
-
-        addAlert({
-          type,
-          severity,
-          message: `Alert in Tanker ${tankNumber}: ${type.replace(/_/g, ' ')}`,
-          location: `TANK-${String(tankNumber).padStart(3, '0')}`,
-        })
-      }
-    }, 10000)
-
-    return () => clearInterval(interval)
-  }, [addAlert])
-
-  const getCriticalAlerts = () => alerts.filter((a) => a.severity === 'critical')
-  const getWarningAlerts = () => alerts.filter((a) => a.severity === 'warning')
-  const getInfoAlerts = () => alerts.filter((a) => a.severity === 'info')
+  useEffect(() => {
+    const active = getActiveAlerts()
+    setActiveAlerts(active)
+    setCriticalAlerts(active.filter((a) => a.severity === 'critical'))
+    setWarningAlerts(active.filter((a) => a.severity === 'warning'))
+    setInfoAlerts(active.filter((a) => a.severity === 'info'))
+  }, [alerts])
 
   return {
     alerts,
-    activeAlerts: getActiveAlerts(),
-    criticalAlerts: getCriticalAlerts(),
-    warningAlerts: getWarningAlerts(),
-    infoAlerts: getInfoAlerts(),
+    activeAlerts,
+    criticalAlerts,
+    warningAlerts,
+    infoAlerts,
     addAlert,
     resolveAlert,
     dismissAlert,

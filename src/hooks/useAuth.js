@@ -1,20 +1,14 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect } from 'react'
 import useAuthStore from '../stores/authStore'
+import { authenticateUser } from '../services/apiService'
 
-/**
- * Custom hook for authentication
- * Provides login, logout, and user state
- */
 const useAuth = () => {
-  const { isAuthenticated, user, loading, error, login, logout, updateProfile } = useAuthStore()
+  const { isAuthenticated, user, loading, error, login, logout } = useAuthStore()
 
-  const handleLogin = useCallback(async (email, password) => {
-    return await login(email, password)
-  }, [login])
-
-  const handleLogout = useCallback(() => {
-    logout()
-  }, [logout])
+  const handleLogin = async (email, password) => {
+    const result = await login(email, password)
+    return result
+  }
 
   return {
     isAuthenticated,
@@ -22,8 +16,7 @@ const useAuth = () => {
     loading,
     error,
     login: handleLogin,
-    logout: handleLogout,
-    updateProfile,
+    logout,
   }
 }
 
