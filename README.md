@@ -1,245 +1,171 @@
-# Rail Tank Monitor 🚂💧
+# Rail Tank Monitor
 
-## Railway Water Tank Monitoring System
+## Enterprise Water Management System for Railway Tankers
 
-A modern, production-ready enterprise dashboard for monitoring a railway freight train carrying 100 water tankers. Built with React 19, Vite, and Tailwind CSS.
+A modern, real-time monitoring dashboard for managing water tankers on railway trains with live GPS tracking, sensor monitoring, and analytics.
 
 ### 🎯 Features
 
-#### 1. **Authentication**
-- Modern glassmorphism login page
-- Email & password authentication
-- Remember me functionality
-- Forgot password support
-- Dark theme
+- **Live Train Tracking**: Real-time GPS positioning and route monitoring
+- **Tanker Management**: Monitor 100+ water tankers with detailed metrics
+- **Sensor Monitoring**: IoT sensor status and health tracking
+- **Analytics Dashboard**: Water consumption trends and system performance
+- **Alert System**: Real-time alerts for critical issues
+- **Reports**: Generate and download system reports
+- **Dark Mode Interface**: Modern, easy-on-the-eyes UI
+- **Responsive Design**: Works on desktop and tablet devices
 
-#### 2. **Dashboard**
-- Professional enterprise layout
-- Real-time monitoring cards
-- Key metrics display (water level, capacity, speed, ETA, etc.)
-- Responsive grid system
-
-#### 3. **Live Train Tracking**
-- Google Maps integration
-- Live train marker with animation
-- Mumbai to Pune railway route visualization
-- Real-time coordinates and speed display
-- Direction indicator
-- Zoom controls
-- Dark map style
-
-#### 4. **Tanker Management**
-- Display 100 tankers with real-time data
-- Water percentage with progress bars
-- Temperature and pressure monitoring
-- Valve and sensor status
-- Tank health indicators
-- Color-coded status (Green/Yellow/Red)
-- Search, filter, and sort capabilities
-- Detailed tanker view
-
-#### 5. **Analytics & Reports**
-- Water usage charts
-- Temperature trends
-- Pressure trends
-- Daily/Monthly consumption
-- PDF/Excel export functionality
-- Date range filtering
-
-#### 6. **Alerts System**
-- Low water alerts
-- Sensor offline notifications
-- GPS offline alerts
-- High temperature warnings
-- Pressure warnings
-- Alert severity levels
-- Real-time updates
-
-#### 7. **Settings**
-- User profile management
-- Company settings
-- API configuration
-- Notification preferences
-- Theme customization
-
-### 🛠 Tech Stack
-
-- **Frontend Framework**: React 19
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **Routing**: React Router v6
-- **State Management**: Zustand
-- **Animations**: Framer Motion
-- **Charts**: ApexCharts & Recharts
-- **Maps**: Google Maps API
-- **Export**: jsPDF & XLSX
-- **Icons**: Lucide React
-
-### 📦 Installation
+### 🚀 Quick Start
 
 #### Prerequisites
-- Node.js 18+
+- Node.js 16.x or higher
 - npm or yarn
 
-#### Steps
+#### Installation
 
-1. **Clone the repository**
 ```bash
+# Clone the repository
 git clone https://github.com/AnandGarad/RailTankMonitor.git
 cd RailTankMonitor
-```
 
-2. **Install dependencies**
-```bash
+# Install dependencies
 npm install
-```
 
-3. **Create environment file**
-```bash
-cp .env.example .env.local
-```
-
-4. **Update environment variables**
-Edit `.env.local` and add your Google Maps API key:
-```
-VITE_GOOGLE_MAPS_API_KEY=your_api_key_here
-```
-
-5. **Run development server**
-```bash
+# Start development server
 npm run dev
-```
 
-6. **Build for production**
-```bash
+# Build for production
 npm run build
 ```
 
-### 🎨 Project Structure
+### 📁 Project Structure
 
 ```
 src/
-├── assets/              # Images, logos, fonts
 ├── components/          # Reusable UI components
-│   ├── common/
-│   ├── dashboard/
-│   ├── tankers/
-│   ├── charts/
-│   └── layout/
+│   ├── Sidebar.jsx
+│   ├── Navbar.jsx
+│   ├── Button.jsx
+│   ├── Card.jsx
+│   ├── Alert.jsx
+│   ├── Modal.jsx
+│   ├── Chart.jsx
+│   └── ...
 ├── pages/               # Page components
+│   ├── LoginPage.jsx
+│   ├── Dashboard.jsx
+│   ├── LiveTrain.jsx
+│   ├── Tankers.jsx
+│   ├── Analytics.jsx
+│   └── ...
 ├── hooks/               # Custom React hooks
-├── context/             # Context API setup
-├── services/            # API & data services
-├── stores/              # Zustand stores
+│   ├── useAuth.js
+│   ├── useTrain.js
+│   ├── useTankers.js
+│   └── ...
+├── stores/              # Zustand state management
+│   ├── authStore.js
+│   ├── trainStore.js
+│   ├── tankerStore.js
+│   └── ...
+├── services/            # API and business logic
+│   └── apiService.js
 ├── utils/               # Utility functions
-├── styles/              # Global styles
-├── data/                # Mock/dummy data
+│   ├── constants.js
+│   └── helpers.js
+├── layouts/             # Layout components
+│   └── DashboardLayout.jsx
 ├── App.jsx              # Main app component
 └── main.jsx             # Entry point
 ```
 
-### 🚀 Quick Start
+### 🔑 Demo Credentials
 
-```bash
-# Development
-npm run dev
-
-# Build
-npm run build
-
-# Preview production build
-npm run preview
-
-# Lint
-npm run lint
+```
+Email: admin@railtank.com
+Password: Admin@123
 ```
 
-### 🎨 Theme Colors
+### 🛠 Technology Stack
 
-- **Background**: `#0F172A`
-- **Cards**: `#1E293B`
-- **Primary**: `#06B6D4` (Cyan)
-- **Success**: `#22C55E` (Green)
-- **Warning**: `#F59E0B` (Amber)
-- **Danger**: `#EF4444` (Red)
+- **Frontend Framework**: React 18
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand
+- **Routing**: React Router v6
+- **Charts**: Recharts
+- **Maps**: Leaflet + React Leaflet
+- **Build Tool**: Vite
+- **Icons**: Lucide React
 
-### 📱 Responsive Design
+### 📊 Key Pages
 
-- ✅ Desktop (1920px+)
-- ✅ Tablet (768px - 1024px)
-- ✅ Mobile (320px - 767px)
+1. **Dashboard**: System overview with real-time metrics
+2. **Live Train**: GPS tracking and train status monitoring
+3. **Tankers**: View and manage all water tankers
+4. **Tanker Details**: Detailed information for individual tankers
+5. **Analytics**: Water consumption trends and performance metrics
+6. **Reports**: Generate and download system reports
+7. **Alerts**: System alerts and notifications
+8. **Sensors**: IoT sensor status and health
+9. **Settings**: User preferences and system configuration
 
-### 🔐 Default Credentials
+### 🎨 UI Components
 
-**For Testing**
-- Email: `admin@railtank.com`
-- Password: `Admin@123`
+- Responsive sidebar navigation
+- Modern dark theme interface
+- Real-time data visualization
+- Interactive charts and graphs
+- Toast notifications
+- Modal dialogs
+- Status badges and indicators
+- Progress bars and gauges
 
-### 📊 Real-time Data Updates
+### 🔐 Authentication
 
-- GPS Coordinates: Every 5 seconds
-- Water Level: Every 10 seconds
-- Train Speed: Every 5 seconds
-- Temperature: Every 15 seconds
-- Pressure: Every 15 seconds
+- Secure login system
+- Session management
+- Protected routes
+- User profile management
 
-### 🗺 Google Maps Setup
+### 📡 Real-time Updates
 
-1. Create a Google Cloud project
-2. Enable Maps JavaScript API
-3. Create an API key
-4. Add it to `.env.local` as `VITE_GOOGLE_MAPS_API_KEY`
-5. Restrict API key to your domain
+- GPS position updates (5 seconds)
+- Water level updates (10 seconds)
+- Temperature monitoring (15 seconds)
+- Pressure monitoring (15 seconds)
+- Alert notifications (10 seconds)
 
-### 📖 Component Documentation
+### ⚡ Performance Features
 
-#### Key Components
+- Optimized re-renders with Zustand
+- Lazy loading for components
+- Debounced search and filters
+- Efficient data management
 
-- **Sidebar**: Navigation menu with collapsible state
-- **Navbar**: Top navigation with search, notifications, profile
-- **DashboardCards**: Key metrics display
-- **GoogleMap**: Live train tracking map
-- **TankerCard**: Individual tanker information
-- **WaterGauge**: Circular water level indicator
-- **ChartCard**: Reusable chart wrapper
-- **AlertCard**: Alert notification display
+### 📱 Browser Support
 
-### 🔄 State Management
-
-Using Zustand for:
-- Train data state
-- Tanker data state
-- Alert state
-- User preferences
-- Authentication state
-
-### 📤 Export Functionality
-
-- **PDF Export**: Using jsPDF
-- **Excel Export**: Using XLSX
-- **Date Range Filtering**: For reports
-
-### 🐛 Common Issues
-
-1. **Maps not loading**: Check Google Maps API key in `.env.local`
-2. **Styling issues**: Clear node_modules and reinstall
-3. **Port already in use**: Change port in vite.config.js
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
 ### 🤝 Contributing
 
-1. Create a feature branch
-2. Make your changes
-3. Test thoroughly
-4. Submit a pull request
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### 📝 License
+### 📄 License
 
-MIT License - feel free to use this project
+MIT License - feel free to use this project for personal or commercial purposes.
 
-### 📞 Support
+### 👨‍💻 Author
 
-For issues and questions, please create an issue in the repository.
+**Anand Garad**
+- GitHub: [@AnandGarad](https://github.com/AnandGarad)
+
+### 🙏 Acknowledgments
+
+Thank you for using Rail Tank Monitor! If you find this project helpful, please consider giving it a star ⭐
 
 ---
 
-**Built with ❤️ for railway monitoring**
+**Built with ❤️ for efficient water management**
